@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,6 @@ namespace LO.Uninter.SistemaBancario3
     {
         static void Main(string[] args)
         {
-
             cliente cliente1 = new cliente(
                 1,
                 "Lizbeth Diaz",
@@ -35,12 +35,9 @@ namespace LO.Uninter.SistemaBancario3
                 "78768929",
                 "julss@gmail.com");
 
-
-
             cliente1.CambiarNombre("Lizbeth Diaz");
             cliente2.CambiarTelefono("7771234567");
             cliente3.CambiarCorreo("julia@gmail.com");
-
 
             cuenta cuenta1 = new cuenta(
                 "100001",
@@ -48,38 +45,28 @@ namespace LO.Uninter.SistemaBancario3
                 5000.00m,
                 new DateTime(2026, 8, 1));
 
-
             Console.WriteLine("Saldo inicial: $" + cuenta1.Saldo);
-
 
             cuenta1.Depositar(2000);
             Console.WriteLine("Depósito: $" + cuenta1.Saldo);
 
-
             cuenta1.Retirar(1500);
             Console.WriteLine("Retiro: $" + cuenta1.Saldo);
 
-
             cuenta1.Retirar(10000);
-
             cuenta1.Depositar(-500);
-
 
             cuenta1.BloquearCuenta();
 
-
             cuenta1.Depositar(1000);
-
 
             cuenta cuenta2 = new cuenta(
                 "100002",
                 "Ahorro",
                 new DateTime(2026, 8, 5));
 
-
             cuenta cuenta3 = new cuenta(
                 "Corriente");
-
 
             banco banco1 = new banco(
                 1,
@@ -91,7 +78,6 @@ namespace LO.Uninter.SistemaBancario3
                 "www.bancouninter.com",
                 true,
                 new DateTime(2026, 1, 15));
-
 
             movimiento movimiento1 = new movimiento(
                 1,
@@ -105,7 +91,6 @@ namespace LO.Uninter.SistemaBancario3
                 "",
                 true);
 
-
             tarjeta tarjeta1 = new tarjeta(
                 1,
                 "1234567890123456",
@@ -117,20 +102,16 @@ namespace LO.Uninter.SistemaBancario3
                 true,
                 0.00m);
 
-
             MostrarCliente(cliente1);
             MostrarCliente(cliente2);
             MostrarCliente(cliente3);
-
 
             MostrarCuenta(cuenta1);
             MostrarCuenta(cuenta2);
             MostrarCuenta(cuenta3);
 
-
             Console.WriteLine();
             Console.WriteLine("Banco");
-
             Console.WriteLine("ID: " + banco1.IdBanco);
             Console.WriteLine("Nombre: " + banco1.Nombre);
             Console.WriteLine("RFC: " + banco1.RFC);
@@ -138,14 +119,13 @@ namespace LO.Uninter.SistemaBancario3
             Console.WriteLine("Teléfono: " + banco1.Telefono);
             Console.WriteLine("Correo: " + banco1.Correo);
             Console.WriteLine("Sitio web: " + banco1.SitioWeb);
-            Console.WriteLine("Estado: " + (banco1.Estado ? "Activo" : "Inactivo"));
+            Console.WriteLine("Estado: " +
+                (banco1.Estado ? "Activo" : "Inactivo"));
             Console.WriteLine("Fecha de registro: " +
                 banco1.FechaRegistro.ToShortDateString());
 
-
             Console.WriteLine();
             Console.WriteLine("Movimiento");
-
             Console.WriteLine("ID: " + movimiento1.IdMovimiento);
             Console.WriteLine("Número de cuenta: " + movimiento1.NumeroCuenta);
             Console.WriteLine("Tipo: " + movimiento1.TipoMovimiento);
@@ -158,10 +138,8 @@ namespace LO.Uninter.SistemaBancario3
             Console.WriteLine("Estado: " +
                 (movimiento1.Estado ? "Procesado" : "No procesado"));
 
-
             Console.WriteLine();
             Console.WriteLine("Tarjeta");
-
             Console.WriteLine("ID: " + tarjeta1.IdTarjeta);
             Console.WriteLine("Número: " + tarjeta1.NumeroTarjeta);
             Console.WriteLine("Tipo: " + tarjeta1.TipoTarjeta);
@@ -175,18 +153,144 @@ namespace LO.Uninter.SistemaBancario3
                 (tarjeta1.Estado ? "Activa" : "Inactiva"));
             Console.WriteLine("Límite de crédito: $" + tarjeta1.LimiteCredito);
 
+            CuentaAhorro ahorro = new CuentaAhorro(
+                "1001",
+                "Juan Perez",
+                10000,
+                5);
+
+            Console.WriteLine();
+      
+
+            ahorro.MostrarInformacion();
+
+            ahorro.Depositar(1500);
+
+            Console.WriteLine(
+                "Saldo despues del deposito: $" + ahorro.Saldo);
+
+            Console.WriteLine();
+           
+
+            ahorro.AplicarInteres();
+
+            Console.WriteLine(
+                "Saldo despues de aplicar interes: $" + ahorro.Saldo);
+
+            Console.WriteLine();
+
+            CuentaCheques cheques = new CuentaCheques(
+                "2001",
+                "Maria Lopez",
+                15000,
+                50);
+
+       
+
+            cheques.MostrarInformacion();
+
+            bool retiroCheques = cheques.Retirar(1000);
+
+            if (retiroCheques)
+                Console.WriteLine(
+                    "Retiro de 1000 exitoso. Se desconto una comision de 50.");
+            else
+                Console.WriteLine(
+                    "No fue posible realizar el retiro.");
+
+            Console.WriteLine("Saldo actual: $" + cheques.Saldo);
+
+            Console.WriteLine();
+
+            CuentaNomina nomina = new CuentaNomina(
+                "3001",
+                "Carlos Hernandez",
+                12000,
+                5000);
+
+          
+
+            nomina.MostrarInformacion();
+
+            bool retiroNominaOK = nomina.Retirar(2000);
+
+            if (retiroNominaOK)
+                Console.WriteLine("Retiro de 2000 exitoso");
+            else
+                Console.WriteLine("No fue posible realizar el retiro.");
+
+            Console.WriteLine("Saldo actual: $" + nomina.Saldo);
+
+            Console.WriteLine();
+
+            
+
+            bool retiroNominaNo = nomina.Retirar(6000);
+
+            if (retiroNominaNo)
+                Console.WriteLine("Retiro de 6000 exitoso");
+            else
+                Console.WriteLine(
+                    "No fue posible realizar el retiro porque supera el limite de 5000.");
+
+            Console.WriteLine("Saldo actual: $" + nomina.Saldo);
+
+            Console.WriteLine();
+
+           
+
+            List<cuenta> cuentas = new List<cuenta>();
+
+            cuentas.Add(ahorro);
+            cuentas.Add(cheques);
+            cuentas.Add(nomina);
+
+            CuentaCredito credito = new CuentaCredito(
+                "4001",
+                "Ana Torres",
+                5000,
+                10000);
+
+            cuentas.Add(credito);
+
+            foreach (cuenta cuenta in cuentas)
+            {
+                cuenta.MostrarInformacion();
+              
+            }
+
+            Console.WriteLine();
+           
+
+            foreach (cuenta cuenta in cuentas)
+            {
+                Console.WriteLine(
+                    "Retiro en cuenta: " + cuenta.NumeroCuenta);
+
+                bool resultado = cuenta.Retirar(1000);
+
+                if (resultado)
+                    Console.WriteLine(
+                        "Retiro realizado correctamente.");
+                else
+                    Console.WriteLine(
+                        "No fue posible realizar el retiro.");
+
+                Console.WriteLine(
+                    "Saldo actual: $" + cuenta.Saldo);
+
+                Console.WriteLine();
+            }
 
             Console.WriteLine();
             Console.WriteLine("Presiona cualquier tecla para salir...");
             Console.ReadKey();
         }
 
-
         static void MostrarCliente(cliente cliente)
         {
             Console.WriteLine();
             Console.WriteLine("Cliente");
-
             Console.WriteLine("ID: " + cliente.IdCliente);
             Console.WriteLine("Nombre: " + cliente.Nombre);
             Console.WriteLine("Dirección: " + cliente.Direccion);
@@ -195,17 +299,17 @@ namespace LO.Uninter.SistemaBancario3
             Console.WriteLine("Correo: " + cliente.Correo);
         }
 
-
         static void MostrarCuenta(cuenta cuenta)
         {
             Console.WriteLine();
             Console.WriteLine("Cuenta");
-
             Console.WriteLine("Número de cuenta: " + cuenta.NumeroCuenta);
             Console.WriteLine("Tipo de cuenta: " + cuenta.TipoCuenta);
             Console.WriteLine("Saldo: $" + cuenta.Saldo);
-            Console.WriteLine("Fecha de apertura: " +
+            Console.WriteLine(
+                "Fecha de apertura: " +
                 cuenta.FechaApertura.ToShortDateString());
         }
     }
 }
+
